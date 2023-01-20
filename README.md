@@ -1,1 +1,1 @@
-#Procedural Generation with Wave Function Collapse Proof-of-Concept
+# Procedural Generation with Wave Function Collapse Proof-of-Concept

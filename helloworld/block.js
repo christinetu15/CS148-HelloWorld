@@ -39,12 +39,15 @@ export class Block{
     Analyze(blocks){
         // up down left right front back
         const faces = [[2,3,6,7], [0,1,5,4], [0,4,6,2], [1,5,7,3], [0,1,3,2], [4,5,7,6]];
+        const facing = [[0,1,4,5], [2,3,7,6], [1,5,7,3],[0,4,6,2], [4,5,7,6],[0,1,3,2]]
         for(let j = 0; j < blocks.length; ++j){
             let block = blocks[j];
             for(let i = 0; i < 6; ++i){
                 let count = 0;
-                for(let idx of faces[i]){
-                    if(block.nodelist[idx] != this.nodelist[idx]){
+                for(let k = 0; k < 4; ++k){
+                    let face_idx = faces[i][k];
+                    let facing_idx = facing[i][k];
+                    if(block.nodelist[facing_idx] != this.nodelist[face_idx]){
                         break;
                     }
                     count++;

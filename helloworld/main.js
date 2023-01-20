@@ -127,7 +127,7 @@ class Demo {
     document.addEventListener('keydown', (key)=>{
       switch(key.key){
         case " ":
-          this.Generate();
+          this.Generate(true);
           break;
         case "r":
           this.Reset();
@@ -137,6 +137,10 @@ class Demo {
           break;
         case "c":
           console.log(this.group.children.length);
+          break;
+        case ".":
+          this.Generate(false);
+          break;
         default:
           break;
       }
@@ -237,7 +241,8 @@ class Demo {
     this.blocks[7] = this.blocks[1].Rotate(0, Math.PI, "#9792E3");
     this.blocks[8] = this.blocks[1].Rotate(Math.PI, Math.PI/2, "#8D6346");
     this.blocks[9] = this.blocks[1].Rotate(Math.PI, -Math.PI/2, "#9842f5");
-    //this.blocks[9] = new Block([],"#000000");
+    this.blocks[10] = new Block([],"#000000");
+    this.blocks[11] = this.blocks[0].Rotate(Math.PI,0,"#EFEA5A");
 
   }
 
@@ -301,7 +306,7 @@ class Demo {
 
   }
 
-  Generate(){
+  Generate(recurse){
     for(let i = this.group.children.length-1; i >= 0; --i){
       let b = this.group.children[i];
       this.group.remove(b);
@@ -315,9 +320,12 @@ class Demo {
           let cell = this.grid[i*this.DIM*this.DIM + j * this.DIM + k];
           if(cell.collapsed){
             let idx = cell.options[0];
-            let b =this.blocks[idx].mesh.clone();
-            b.position.set(2*i,2*j,2*k);
-            this.group.add(b);
+            if(this.blocks[idx].verts.length > 0){
+              let b =this.blocks[idx].mesh.clone();
+              b.position.set(2*i,2*j,2*k);
+              this.group.add(b);
+            }
+            
           }
         }
       }
@@ -355,15 +363,12 @@ class Demo {
     // }
     cell.options = [pick];
 
-
-
     //let visited = Set()
     let next = [];
     for(let i = 0; i < this.DIM; ++i){
       for(let j = 0; j < this.DIM; ++j){
         for(let k = 0; k < this.DIM; ++k){
           let idx = i * this.DIM * this.DIM + j * this.DIM + k;
-          //console.log(idx);
           if(this.grid[idx].collapsed){
             next[idx] = this.grid[idx];
           }else{
@@ -448,7 +453,7 @@ class Demo {
     }
     //console.log(next);
     this.grid = next;
-    this.Generate();
+    if(recurse) this.Generate(true);
   }
 
   // DFS(x,y,z,visited){

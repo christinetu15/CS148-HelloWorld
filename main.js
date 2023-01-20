@@ -8,6 +8,24 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import {Block} from './block.js'
 import { Cell } from './cell.js';
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCAEvtwH5gCFZvE3863chCxmEkFEK9mKy8",
+  authDomain: "helloworld-d25a7.firebaseapp.com",
+  projectId: "helloworld-d25a7",
+  storageBucket: "helloworld-d25a7.appspot.com",
+  messagingSenderId: "762191132457",
+  appId: "1:762191132457:web:e90624ce4e59f312696938"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 class Demo {
   constructor(){
     this.Initialize();
@@ -46,7 +64,7 @@ class Demo {
     this.blocks = [];
 
     this.grid = [];
-    this.DIM = 3;
+    this.DIM = 10;
 
     const loader = new FontLoader();
 
@@ -242,7 +260,7 @@ class Demo {
     this.blocks[8] = this.blocks[1].Rotate(Math.PI, Math.PI/2, "#8D6346");
     this.blocks[9] = this.blocks[1].Rotate(Math.PI, -Math.PI/2, "#9842f5");
     this.blocks[10] = new Block([],"#000000");
-    this.blocks[11] = this.blocks[0].Rotate(Math.PI,0,"#EFEA5A");
+    //this.blocks[11] = this.blocks[0].Rotate(Math.PI,0,"#EFEA5A");
 
   }
 
